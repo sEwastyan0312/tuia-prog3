@@ -18,36 +18,36 @@ class DepthFirstSearch:
         # Initialize root node
         root = Node("", state=grid.initial, cost=0, parent=None, action=None)
 
-        # Initialize expanded with the empty dictionary
+        # Inicializar el diccionario de estados expandidos
         expanded = dict()
 
-        # Initialize frontier with the root node
+        # Inicializar la frontera con el nodo raiz 
         frontier = StackFrontier()
         frontier.add(root)
 
-        # Main loop
+        # Bucle Principal
         while not frontier.is_empty():
-            # Extract the deepest unexpanded node (LIFO)
+            # Extraer el nodo mas profundo no expandido (LIFO)
             node = frontier.remove()
 
-            # If the node has already been expanded, skip it to avoid infinite cycles
+            # Si el nodo ya ha sido expandido, se omite para evitar ciclos infinitos
             if node.state in expanded:
                 continue
 
-            # Mark the current node's state as expanded
+            # Marcar el estado del nodo actual como expandido
             expanded[node.state] = True
 
-            # Late Goal Test: Check if we found the solution upon expansion
+            # Prueba de objetivo tardia: comprueba si se encontro la solucion al expandir
             if grid.objective_test(node.state):
                 return Solution(node, expanded)
 
-            # Expand the node by looking at all possible actions
+            # Expandir el nodo analizando todas las acciones posibles
             for action in grid.actions(node.state):
                 successor = grid.result(node.state, action)
 
-                # Only add to frontier if the state hasn't been expanded yet
+                # Solo añadir a la frontera si el estado aun no ha sido expandido 
                 if successor not in expanded:
-                    # Create the child node
+                    # Crear el nodo hijo
                     child = Node(
                         value="",
                         state=successor,
@@ -56,8 +56,8 @@ class DepthFirstSearch:
                         action=action
                     )
                     
-                    # Add the new child to the stack frontier
+                    # Añadir el nuevo hijo a la frontera de tipo pila
                     frontier.add(child)
 
-        # If the frontier is empty and no solution was found
+        # Si la frontera esta vacia y no se encontro solucion 
         return NoSolution(expanded)

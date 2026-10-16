@@ -26,23 +26,23 @@ class GoRight:
         if grid.objective_test(root.state):
             return Solution(root, reached)
 
-        # Current node, starting from the root
+        # Nodo actual, comenzando desde la raiz 
         node = root
 
         while True:
 
-            # Check if going right is possible
+            # comprobamos si es posible ir a la derecha
             if "right" not in grid.actions(node.state):
                 return NoSolution(reached)
 
-            # Get the successor
+            # Obtener el sucesor
             successor = grid.result(node.state, "right")
 
-            # Check if the successor is reached
+            # comprobar si el sucesor ya fue alcanzado
             if successor in reached:
                 continue
 
-            # Initialize the son node
+            # Inicializa el nodo hijo
             son = Node(
                 "",
                 successor,
@@ -51,13 +51,13 @@ class GoRight:
                 action="right",
             )
 
-            # Mark the successor as reached
+            # Marcar el sucesor como alcanzado
             reached[successor] = True
 
-            # Apply objective test
+            # Aplicar la prueba de objetivo
             if grid.objective_test(successor):
                 return Solution(son, reached)
             
-            # Continue with the son
+            # Continuar con el hijo
             node = son
 
