@@ -46,7 +46,7 @@ def estrategia_minimax(tateti: Tateti, estado: List[List[str]]) -> Tuple[int, in
         NotImplementedError: Hasta que el alumno implemente el algoritmo
     """
 
-     jugador_actual = tateti.jugador(estado)
+    jugador_actual = tateti.jugador(estado)
 
     def max_value(estado):
         if tateti.test_terminal(estado):
