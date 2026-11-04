@@ -6,15 +6,14 @@ from ..models.node import Node
 
 class GreedyBestFirstSearch:
     @staticmethod
+    def heuristic(state: tuple[int, int], goal: tuple[int, int]) -> int:
+        """Manhattan distance"""
+        return abs(state[0] - goal[0]) + abs(state[1] - goal[1])
+
+    @staticmethod
     def search(grid: Grid) -> Solution:
-        """Find path between two points in a grid using Greedy Best First Search
+        """Find path using Greedy Best First Search"""
 
-        Args:
-            grid (Grid): Grid of points
-
-        Returns:
-            Solution: Solution found
-        """
         # Initialize root node
         root = Node("", state=grid.initial, cost=0, parent=None, action=None)
 
